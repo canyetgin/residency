@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {
+    rules: {
+      '*.lottie': {
+        type: 'asset', 
+      },
+    },
+  },
 };
 
 export default nextConfig;

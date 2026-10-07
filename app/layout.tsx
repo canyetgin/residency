@@ -4,7 +4,7 @@ import "./globals.css";
 import { cn } from "cn";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 
-const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
+const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,12 +28,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", figtree.variable)}
     >
-      <body className="min-h-full flex flex-col">  <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >{children}</ThemeProvider></body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <main >{children}</main>
+
+      </ThemeProvider>
+      </body>
     </html>
   );
 }
