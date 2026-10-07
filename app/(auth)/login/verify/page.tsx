@@ -1,6 +1,6 @@
-import { RefreshCwIcon } from "lucide-react"
+import { RefreshCwIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,20 +8,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/components/ui/field"
+} from "@/components/ui/card";
+import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp"
+} from "@/components/ui/input-otp";
 
-export function InputOTPForm() {
+export default function InputOTPForm() {
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader>
@@ -77,5 +73,5 @@ export function InputOTPForm() {
         </Field>
       </CardFooter>
     </Card>
-  )
+  );
 }

@@ -1,5 +1,9 @@
+"use client"; // TODO: Remove this when u will do the actions. and OTP Verification need to be with Redis
 import LoginAnimation from "@/components/animations/login";
 import { Button } from "@/components/ui/button";
+import { ArrowLeftIcon } from "lucide-react";
+import Image from "next/image";
+import GoogleSocialIcon from "@/public/socials/google-icon.svg";
 import {
   Card,
   CardAction,
@@ -12,21 +16,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Marker, MarkerContent } from "@/components/ui/marker";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { ButtonGroup } from "@/components/ui/button-group";
+import AuthMenu from "@/components/auth-menu";
 
 export default function CardDemo() {
+  const router = useRouter();
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div>
       <Card className="w-full max-w-sm">
-        <Button variant="link"></Button>
         <LoginAnimation />
+        <div className="w-full flex justify-center">
+          <AuthMenu />
+        </div>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
-          <CardAction>
-            <Button variant="link">Sign Up</Button>
-          </CardAction>
+          <CardTitle className=" flex items-center">Welcome Back</CardTitle>
+
+          <CardDescription> Sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
@@ -42,27 +49,44 @@ export default function CardDemo() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required />
+                <div>
+                  <Input id="password" type="password" required />
+                  <Button
+                    variant="link"
+                    size="xs"
+                    className="text-xs underline-offset-4 hover:underline p-0 m-0 justify-start mt-1"
+                  >
+                    Forgot password? / Open Modal
+                  </Button>
+                </div>
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full">
-            Login
+          <Button
+            type="submit"
+            onClick={() => {
+              router.push("/login/verify");
+            }}
+            className="w-full"
+          >
+            Sign In
           </Button>
+
+          <Marker variant="separator" className="my-2">
+            <MarkerContent>or</MarkerContent>
+          </Marker>
           <Button variant="outline" className="w-full">
+            <GoogleSocialIcon />
             Login with Google
           </Button>
-          <Marker variant="border">
-          
-          </Marker>
-          <a
-            href="#"
-            className="m-auto mt-1 inline-block text-sm underline-offset-4 hover:underline"
-          >
-            Forgot your password?
-          </a>
+          <div className="flex flex-row gap-0.25 mt-4">
+            Dont have an account?
+            <Button variant="link" className="w-fit p-0 m-0 h-fit">
+              Sign Up
+            </Button>
+          </div>
         </CardFooter>
       </Card>
     </div>
