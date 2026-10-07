@@ -16,7 +16,7 @@ const items = [
 export default function LangSwitcher() {
   return (
     <Select items={items} defaultValue="tr">
-      <SelectTrigger className="w-full max-w-48">
+      <SelectTrigger className="w-full min-w-[140px]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

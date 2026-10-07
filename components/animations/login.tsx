@@ -1,15 +1,9 @@
 "use client";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import loginAnimation from "@/public/animations/Login.lottie";
+import WelcomeBackAnimation from "@/public/animations/welcome.lottie";
 
-export default function LoginAnimation() {
+export default function WelcomeBack() {
   return (
-    <DotLottieReact
-    
-      renderConfig={{ autoResize: true }}
-      src={loginAnimation}
-      loop
-      autoplay
-    />
+    <DotLottieReact height={300} src={WelcomeBackAnimation} loop autoplay />
   );
 }
