@@ -19,31 +19,35 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function InputOTPForm() {
   const router = useRouter();
+  const t = useTranslations("auth.otp");
 
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader>
-        <CardTitle>Verify your login</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
         <CardDescription>
-          Enter the verification code we sent to your email address:{" "}
-          <span className="font-medium">m@example.com</span>.
+          {t("desc")} <span className="font-medium">m@example.com</span>.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Field>
           <div className="flex items-center justify-between">
-            <FieldLabel htmlFor="otp-verification">
-              Verification code
-            </FieldLabel>
+            <FieldLabel htmlFor="otp-verification">{t("label")}</FieldLabel>
             <Button variant="outline" size="xs">
               <RefreshCwIcon />
-              Resend Code
+              {t("resend")}
             </Button>
           </div>
-          <InputOTP maxLength={6} id="otp-verification" required>
+          <InputOTP
+            aria-label={t("label")}
+            maxLength={6}
+            id="otp-verification"
+            required
+          >
             <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
               <InputOTPSlot index={0} />
               <InputOTPSlot index={1} />
@@ -57,7 +61,7 @@ export default function InputOTPForm() {
             </InputOTPGroup>
           </InputOTP>
           <FieldDescription>
-            <a href="#">I no longer have access to this email address.</a>
+            <a href="#">{t("notAvaliable")}</a>
           </FieldDescription>
         </Field>
       </CardContent>
@@ -70,15 +74,15 @@ export default function InputOTPForm() {
               router.replace("/dashboard");
             }}
           >
-            Verify
+            {t("action")}
           </Button>
           <div className="text-sm text-muted-foreground">
-            Having trouble signing in?{" "}
+            {t("helpCTA")}{" "}
             <a
               href="#"
               className="underline underline-offset-4 transition-colors hover:text-primary"
             >
-              Contact support
+              {t("helpAction")}
             </a>
           </div>
         </Field>

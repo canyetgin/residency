@@ -13,8 +13,8 @@
         "en": "English"
       },
       "themeSwitcher": {
-        "dark": "Dark Mode",
-        "light": "Light Mode"
+        "dark": "Toggle theme to dark mode",
+        "light": "Toggle theme to light mode"
       }
     },
     "input": {
@@ -35,6 +35,16 @@
       },
       "registerCTA": "Dont have an account?",
       "registerAction": "Sign Up"
+    },
+    "otp": {
+      "title": "Verify your login",
+      "desc": "Enter the verification code we sent to your email address:",
+      "label": "Verification code",
+      "notAvaliable": "I no longer have access to this email address.(yoneticiye wp mesaj linki direct)",
+      "resend": "Resend Code",
+      "action": "Verify",
+      "helpCTA": " Having trouble signing in?",
+      "helpAction": "Contact manager(yoneticiye wp mesaj linki direct)"
     }
   }
 }

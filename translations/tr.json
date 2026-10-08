@@ -13,8 +13,8 @@
         "en": "İngilizce"
       },
       "themeSwitcher": {
-        "dark": "Koyu Tema",
-        "light": "Açık Tema"
+        "dark": "Tema'yı koyu renk olarak değiştir",
+        "light": "Tema'yı açık renk olarak değiştir"
       }
     },
     "input": {
@@ -24,7 +24,7 @@
   },
   "auth": {
     "signIn": {
-      "title": "Tekrar Hoş Geldiniz",
+      "title": "Hoş Geldiniz",
       "desc": "Hesabınıza giriş yapın",
       "passForgot": "Şifremi Unuttum / Modalı Aç",
       "action": "Giriş Yap",
@@ -34,6 +34,16 @@
       },
       "registerCTA": "Hesabınız yok mu?",
       "registerAction": "Kayıt Ol"
+    },
+    "otp": {
+      "title": "Girişinizi doğrulayın",
+      "desc": "E-posta adresinize gönderilen doğrulama kodunu girin:",
+      "label": "Doğrulama kodu",
+      "notAvaliable": "Bu e-posta adresine artık erişimim yok.(yoneticiye wp mesaj linki direct)",
+      "resend": "Tekrar Gönder",
+      "action": "Doğrula",
+      "helpCTA": "Sorun mu yaşıyorsunuz?",
+      "helpAction": "Yöneticinizle iletişime geçin(yoneticiye wp mesaj linki direct)"
     }
   }
 }

@@ -30,15 +30,15 @@ export default function CardDemo() {
 
       <CardHeader>
         <CardTitle className=" flex items-center">
-          {greeting} {tSignIn("title")}
+          {tSignIn("title")}, {greeting}
         </CardTitle>
 
         <CardDescription>{tSignIn("desc")}</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
-          <FieldGroup className="flex flex-col gap-6">
-            <Field>
+          <FieldGroup className="flex flex-col gap-4">
+            <Field className="gap-2">
               <FieldLabel htmlFor="email">{tInput("email")}</FieldLabel>
               <Input
                 id="email"
@@ -48,7 +48,7 @@ export default function CardDemo() {
               />
             </Field>
             <FieldGroup className="!gap-1">
-              <Field>
+              <Field className="gap-2">
                 <FieldLabel htmlFor="password">{tInput("password")}</FieldLabel>
 
                 <Input id="password" type="password" required />
@@ -84,7 +84,7 @@ export default function CardDemo() {
         </Button>
         <div className="flex flex-row gap-0.25 mt-4">
           {tSignIn("registerCTA")}
-          <Button variant="link" className="w-fit p-0 m-0 h-fit">
+          <Button variant="link" className="w-fit p-0 m-0 ml-0.5 h-fit">
             {tSignIn("registerAction")}
           </Button>
         </div>
