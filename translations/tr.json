@@ -3,7 +3,7 @@
     "greeting": {
       "morning": "Günaydın! ☀️",
       "afternoon": "İyi Günler! 🌤️",
-      "evening": "İyi Akşamlar! 🌆",
+      "evening": "İyi Akşamlar! 🌆", 
       "night": "İyi Geceler! 🌙"
     },
     "widgets": {
