@@ -12,7 +12,7 @@ export function useChangeLocale() {
     //safe guard and type guard
     if (!nextLocale || nextLocale === currentLocale) return;
 
-    router.replace(pathname, { locale: nextLocale });
+    router.replace(pathname, { locale: nextLocale,scroll: false });
   };
 
   return {

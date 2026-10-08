@@ -15,47 +15,53 @@ import { Label } from "@/components/ui/label";
 import { Marker, MarkerContent } from "@/components/ui/marker";
 import { useRouter } from "@/i18n/navigation";
 import { useLocalGreeting } from "@/hooks/use-local-greeting";
+import { useTranslations } from "next-intl";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 
 export default function CardDemo() {
   const router = useRouter();
   const greeting = useLocalGreeting();
+  const tSignIn = useTranslations("auth.signIn");
+  const tInput = useTranslations("general.input");
+
   return (
     <Card className="w-full max-w-sm">
       <LoginAnimation />
 
       <CardHeader>
         <CardTitle className=" flex items-center">
-          {greeting}Welcome Back
+          {greeting} {tSignIn("title")}
         </CardTitle>
 
-        <CardDescription> Sign in to your account</CardDescription>
+        <CardDescription>{tSignIn("desc")}</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
-          <div className="flex flex-col gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+          <FieldGroup className="flex flex-col gap-6">
+            <Field>
+              <FieldLabel htmlFor="email">{tInput("email")}</FieldLabel>
               <Input
                 id="email"
                 type="email"
                 placeholder="m@example.com"
                 required
               />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <div>
+            </Field>
+            <FieldGroup className="!gap-1">
+              <Field>
+                <FieldLabel htmlFor="password">{tInput("password")}</FieldLabel>
+
                 <Input id="password" type="password" required />
-                <Button
-                  variant="link"
-                  size="xs"
-                  className="text-xs underline-offset-4 hover:underline p-0 m-0 justify-start mt-1"
-                >
-                  Forgot password? / Open Modal
-                </Button>
-              </div>
-            </div>
-          </div>
+              </Field>
+              <Button
+                variant="link"
+                size="xs"
+                className="text-xs underline-offset-4 hover:underline p-0 m-0 justify-end"
+              >
+                {tSignIn("passForgot")}
+              </Button>
+            </FieldGroup>
+          </FieldGroup>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
@@ -66,20 +72,20 @@ export default function CardDemo() {
           }}
           className="w-full"
         >
-          Sign In
+          {tSignIn("action")}
         </Button>
 
         <Marker variant="separator" className="my-2">
-          <MarkerContent>or</MarkerContent>
+          <MarkerContent>{tSignIn("markerDesc")}</MarkerContent>
         </Marker>
         <Button variant="outline" className="w-full">
           <GoogleSocialIcon />
-          Login with Google
+          {tSignIn("socialLogin.google")}
         </Button>
         <div className="flex flex-row gap-0.25 mt-4">
-          Dont have an account?
+          {tSignIn("registerCTA")}
           <Button variant="link" className="w-fit p-0 m-0 h-fit">
-            Sign Up
+            {tSignIn("registerAction")}
           </Button>
         </div>
       </CardFooter>

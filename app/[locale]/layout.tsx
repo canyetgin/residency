@@ -4,6 +4,7 @@ import "../globals.css";
 import { cn } from "cn";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
+import { getTheme } from "@teispace/next-themes/server";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -32,6 +33,7 @@ export default async function RootLayout({
   params,
 }: RootLayoutProps) {
   const { locale } = await params;
+  const initialTheme = await getTheme();
 
   return (
     <html
@@ -52,7 +54,9 @@ export default async function RootLayout({
             attribute="class"
             defaultTheme="system"
             enableSystem
+            initialTheme={initialTheme ?? undefined}
             disableTransitionOnChange
+            transition
           >
             <main>{children}</main>
           </ThemeProvider>

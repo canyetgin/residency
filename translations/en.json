@@ -16,12 +16,13 @@
         "dark": "Dark Mode",
         "light": "Light Mode"
       }
+    },
+    "input": {
+      "email": "Email",
+      "password": "Password"
     }
   },
-  "input": {
-    "email": "Email",
-    "password": "Password"
-  },
+
   "auth": {
     "signIn": {
       "title": "Welcome Back",

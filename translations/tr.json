@@ -20,20 +20,20 @@
     "input": {
       "email": "E-posta",
       "password": "Şifre"
-    },
-    "auth": {
-      "signIn": {
-        "title": "Tekrar Hoş Geldiniz",
-        "desc": "Hesabınıza giriş yapın",
-        "passForgot": "Şifremi Unuttum / Modalı Aç",
-        "action": "Giriş Yap",
-        "markerDesc": "veya",
-        "socialLogin": {
-          "google": "Google ile Giriş Yap"
-        },
-        "registerCTA": "Hesabınız yok mu?",
-        "registerAction": "Kayıt Ol"
-      }
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Tekrar Hoş Geldiniz",
+      "desc": "Hesabınıza giriş yapın",
+      "passForgot": "Şifremi Unuttum / Modalı Aç",
+      "action": "Giriş Yap",
+      "markerDesc": "veya",
+      "socialLogin": {
+        "google": "Google ile Giriş Yap"
+      },
+      "registerCTA": "Hesabınız yok mu?",
+      "registerAction": "Kayıt Ol"
     }
   }
 }
