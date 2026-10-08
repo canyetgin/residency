@@ -43,6 +43,7 @@ export default function CardDemo() {
               <Input
                 id="email"
                 type="email"
+                autoComplete="email"
                 placeholder="m@example.com"
                 required
               />
@@ -51,7 +52,12 @@ export default function CardDemo() {
               <Field className="gap-2">
                 <FieldLabel htmlFor="password">{tInput("password")}</FieldLabel>
 
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                />
               </Field>
               <Button
                 variant="link"
