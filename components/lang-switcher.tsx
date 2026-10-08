@@ -1,3 +1,4 @@
+"use client";
 import {
   Select,
   SelectContent,
@@ -7,24 +8,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useChangeLocale } from "@/hooks/use-change-locale";
+import { useTranslations } from "next-intl";
 
 const items = [
-  { label: "Turkish", value: "tr" },
-  { label: "English", value: "en" },
+  { labelKey: "tr", value: "tr" },
+  { labelKey: "en", value: "en" },
 ];
 
 export default function LangSwitcher() {
+  const { currentLocale, changeLocale } = useChangeLocale();
+  const t = useTranslations("general.widgets.langSwitcher");
+
   return (
-    <Select items={items} defaultValue="tr">
+    <Select value={currentLocale} onValueChange={changeLocale}>
       <SelectTrigger className="w-full min-w-[140px]">
-        <SelectValue />
+        <SelectValue placeholder={t("label")}>{t(currentLocale)}</SelectValue>
       </SelectTrigger>
+
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Select a Language</SelectLabel>
+          <SelectLabel>{t("label")}</SelectLabel>
           {items.map((item) => (
             <SelectItem key={item.value} value={item.value}>
-              {item.label}
+              {t(item.labelKey)}
             </SelectItem>
           ))}
         </SelectGroup>

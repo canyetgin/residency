@@ -1,0 +1,39 @@
+{
+  "general": {
+    "greeting": {
+      "morning": "Good Morning! ☀️",
+      "afternoon": "Good Afternoon! 🌤️",
+      "evening": "Good Evening! 🌆",
+      "night": "Good Night! 🌙"
+    },
+    "widgets": {
+      "langSwitcher": {
+        "label": "Select a Language",
+        "tr": "Turkish",
+        "en": "English"
+      },
+      "themeSwitcher": {
+        "dark": "Dark Mode",
+        "light": "Light Mode"
+      }
+    }
+  },
+  "input": {
+    "email": "Email",
+    "password": "Password"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Welcome Back",
+      "desc": "Sign in to your account",
+      "passForgot": "Forgot Password? / Open Modal",
+      "action": "Sign In",
+      "markerDesc": "or",
+      "socialLogin": {
+        "google": "Sign In with Google"
+      },
+      "registerCTA": "Dont have an account?",
+      "registerAction": "Sign Up"
+    }
+  }
+}

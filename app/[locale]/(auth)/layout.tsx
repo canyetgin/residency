@@ -1,6 +1,9 @@
 import AuthMenu from "@/components/auth-menu";
-
-export default function AuthLayout({ children }: LayoutProps<"/">) {
+interface AuthLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}
+export default async function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <>
       <main className="flex flex-col min-h-screen min-w-screen items-center justify-center ">

@@ -16,19 +16,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Marker, MarkerContent } from "@/components/ui/marker";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import Link from "next/link";
 import { ButtonGroup } from "@/components/ui/button-group";
 import AuthMenu from "@/components/auth-menu";
+import { useLocalGreeting } from "@/hooks/use-local-greeting";
 
 export default function CardDemo() {
   const router = useRouter();
+  const greeting = useLocalGreeting();
   return (
     <Card className="w-full max-w-sm">
       <LoginAnimation />
 
       <CardHeader>
-        <CardTitle className=" flex items-center">Welcome Back</CardTitle>
+        <CardTitle className=" flex items-center">
+          {greeting}Welcome Back
+        </CardTitle>
 
         <CardDescription> Sign in to your account</CardDescription>
       </CardHeader>
