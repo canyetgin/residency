@@ -1,3 +1,5 @@
+"use client"; // TODO: Remove this when u will do the actions. and OTP Verification need to be with Redis
+
 import { RefreshCwIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -16,8 +18,11 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { useRouter } from "@/i18n/navigation";
 
 export default function InputOTPForm() {
+  const router = useRouter();
+
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader>
@@ -58,7 +63,13 @@ export default function InputOTPForm() {
       </CardContent>
       <CardFooter>
         <Field>
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full"
+            onClick={() => {
+              router.replace("/dashboard");
+            }}
+          >
             Verify
           </Button>
           <div className="text-sm text-muted-foreground">

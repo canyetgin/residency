@@ -1,12 +1,9 @@
 "use client"; // TODO: Remove this when u will do the actions. and OTP Verification need to be with Redis
 import LoginAnimation from "@/components/animations/login";
 import { Button } from "@/components/ui/button";
-import { ArrowLeftIcon } from "lucide-react";
-import Image from "next/image";
 import GoogleSocialIcon from "@/public/socials/google-icon.svg";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -17,9 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Marker, MarkerContent } from "@/components/ui/marker";
 import { useRouter } from "@/i18n/navigation";
-import Link from "next/link";
-import { ButtonGroup } from "@/components/ui/button-group";
-import AuthMenu from "@/components/auth-menu";
 import { useLocalGreeting } from "@/hooks/use-local-greeting";
 
 export default function CardDemo() {
