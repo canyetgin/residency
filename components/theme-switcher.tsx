@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+//used @teispace/next-themes instead of next-themes. bc of react 19 bugs and hydration errs.
+import { ThemeProvider as NextThemesProvider } from "@teispace/next-themes";
+import { useTheme } from "@teispace/next-themes";
 
 import { Toggle } from "./ui/toggle";
 

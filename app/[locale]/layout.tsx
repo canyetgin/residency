@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { cn } from "cn";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
