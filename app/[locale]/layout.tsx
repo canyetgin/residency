@@ -5,6 +5,7 @@ import { cn } from "cn";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getTheme } from "@teispace/next-themes/server";
+import { routing } from "@/i18n/routing";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -28,12 +29,16 @@ interface RootLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
+//since we enabled the prerender and component caching, we need to do this to not get err bc of using next-intl.
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
   const { locale } = await params;
-  const initialTheme = await getTheme();
 
   return (
     <html
@@ -54,7 +59,6 @@ export default async function RootLayout({
             attribute="class"
             defaultTheme="system"
             enableSystem
-            initialTheme={initialTheme ?? undefined}
             disableTransitionOnChange
             transition
           >

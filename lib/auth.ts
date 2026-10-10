@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
-import { admin, anonymous, phoneNumber } from "better-auth/plugins";
+import { admin, anonymous, phoneNumber, twoFactor } from "better-auth/plugins";
 import { Pool } from "pg";
 
 const supabasePool = new Pool({
@@ -15,7 +15,7 @@ const supabasePool = new Pool({
 
 export const auth = betterAuth({
   database: supabasePool,
-  plugins: [admin(), anonymous(), phoneNumber(), nextCookies()], //based on the doc, nextCookies() always need to be the last idk :D
+  plugins: [admin(), anonymous(), phoneNumber(),twoFactor(), nextCookies()], //based on the doc, nextCookies() always need to be the last idk :D
   emailAndPassword: {
     enabled: true,
   },

@@ -3,10 +3,15 @@ import { authClient } from "@/lib/auth-client";
 import { headers } from "next/headers";
 
 export const PERMISSION_MAP = {
-  "dashboard:view": { routes: ["/dashboard"], allowedRoles: ["admin", "manager", "user"] },
-  "users:manage": { routes: ["/dashboard/users"], allowedRoles: ["admin"] },
-  "billing:edit": { routes: ["/dashboard/billing"], allowedRoles: ["admin"] },
-  "reports:view": { routes: ["/dashboard/reports"], allowedRoles: ["admin", "manager"] }
+  "dashboard:view": { routes: ["/"], allowedRoles: ["admin", "owner", "user"] },
+  "users:list:view": { routes: ["/users"], allowedRoles: ["admin"] },
+  "users:detail:view": { routes: ["/users/[user]"], allowedRoles: ["admin"] },
+  "users:edit": { routes: ["/users/[user]/edit"], allowedRoles: ["admin"] },
+  "users:create": { routes: ["/users/create"], allowedRoles: ["admin"] },
+  "properties:list:view": { routes: ["/properties"], allowedRoles: ["admin","owner"] },
+  "properties:create": { routes: ["/properties/new"], allowedRoles: ["admin"] },
+  "properties:detail:view": { routes: ["/properties/[property]"], allowedRoles: ["admin"] },
+  "properties:detail:edit": { routes: ["/properties/[property]/edit"], allowedRoles: ["admin"] },
 } as const;
 
 export type Permission = keyof typeof PERMISSION_MAP;
