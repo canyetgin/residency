@@ -1,9 +1,10 @@
 {
   "general": {
+    "notAllowed": "İzniniz Yok",
     "greeting": {
       "morning": "Günaydın! ☀️",
       "afternoon": "İyi Günler! 🌤️",
-      "evening": "İyi Akşamlar! 🌆", 
+      "evening": "İyi Akşamlar! 🌆",
       "night": "İyi Geceler! 🌙"
     },
     "widgets": {
@@ -45,5 +46,15 @@
       "helpCTA": "Sorun mu yaşıyorsunuz?",
       "helpAction": "Yöneticinizle iletişime geçin(yoneticiye wp mesaj linki direct)"
     }
+  },
+  "complex": {
+    "createError": "Yeni site eklenemedi. Sunucu Hatası."
+  },
+  "validationApi": {
+    "missingFields": "Zorunlu alanlar eksik."
+  },
+  "user": {
+    "updateError": "Kullanıcı Güncellenemedi. Sunucu Hatası.",
+    "deleteError": "Kullanıcı Silinemedi. Sunucu Hatası."
   }
 }

@@ -10,27 +10,34 @@ const supabasePool = new Pool({
   password: process.env.SUPABASE_POOLING_PASSWORD,
   database: "postgres",
   max: 10,
-  ssl: { rejectUnauthorized: false }
+  ssl: { rejectUnauthorized: false },
 });
 
 export const auth = betterAuth({
   database: supabasePool,
-  plugins: [admin(), anonymous(), phoneNumber(),twoFactor(), nextCookies()], //based on the doc, nextCookies() always need to be the last idk :D
+  plugins: [admin(), anonymous(), phoneNumber(), twoFactor(), nextCookies()], //based on the doc, nextCookies() always need to be the last idk :D
+  rateLimit: {
+    enabled: true,
+  },
   emailAndPassword: {
     enabled: true,
   },
-  user: { 
-    additionalFields: { 
+  cookieCache: {
+    enabled: true,
+    maxAge: 5 * 60, // 5 min like our default (Nextjs Config)
+  },
+  user: {
+    additionalFields: {
       role: {
         type: "string",
         required: false,
         defaultValue: "user",
-        input: false //for security concerns.user can not edit role no mather he/she will try :D
+        input: false, //for security concerns.user can not edit role no mather he/she will try :D
       },
-      userMetadata: { type: 'json', required: false, input: false }, 
-      appMetadata: { type: 'json', required: false, input: false }, 
-      invitedAt: { type: 'date', required: false, input: false }, 
-      lastSignInAt: { type: 'date', required: false, input: false }, 
-    }, 
-  }, 
+      userMetadata: { type: "json", required: false, input: false },
+      appMetadata: { type: "json", required: false, input: false },
+      invitedAt: { type: "date", required: false, input: false },
+      lastSignInAt: { type: "date", required: false, input: false },
+    },
+  },
 });

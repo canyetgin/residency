@@ -1,6 +1,4 @@
-"use client";
-
-import { useCan, Permission } from "@/lib/permissions";
+import { Permission, serverCan } from "@/lib/permissions";
 
 interface GuardProps {
   permission: Permission;
@@ -8,8 +6,12 @@ interface GuardProps {
   fallback?: React.ReactNode;
 }
 
-export function Guard({ permission, children, fallback = null }: GuardProps) {
-  const isAllowed = useCan(permission);
+export async function Guard({
+  permission,
+  children,
+  fallback = null,
+}: GuardProps) {
+  const isAllowed = await serverCan(permission);
 
   if (!isAllowed) return <>{fallback}</>;
   return <>{children}</>;

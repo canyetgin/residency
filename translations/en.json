@@ -1,5 +1,6 @@
 {
   "general": {
+    "notAllowed": "Not Allowed",
     "greeting": {
       "morning": "Good Morning! ☀️",
       "afternoon": "Good Afternoon! 🌤️",
@@ -46,5 +47,15 @@
       "helpCTA": " Having trouble signing in?",
       "helpAction": "Contact manager(yoneticiye wp mesaj linki direct)"
     }
+  },
+  "complex": {
+    "createError": "The new site could not be added. Server Error."
+  },
+  "validationApi": {
+    "missingFields": "Required fields are missing."
+  },
+  "user": {
+    "updateError": "The user could not be updated. Server Error.",
+    "deleteError": "The user could not be deleted. Server Error."
   }
 }
