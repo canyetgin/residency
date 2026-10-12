@@ -8,7 +8,8 @@ import { headers } from "next/headers";
 export async function updateUserAction(formData: FormData) {
   const t = await getTranslations("general");
   const tUser = await getTranslations("user");
-
+  
+  //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("profile:update");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
@@ -38,7 +39,8 @@ export async function adminUpdateUserAction({
 }) {
   const t = await getTranslations("general");
   const tUser = await getTranslations("user");
-
+  
+  //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("users:edit");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
@@ -65,7 +67,8 @@ export async function adminUpdateUserAction({
 export async function adminDeleteUserAction(targetUserId: string) {
   const t = await getTranslations("general");
   const tUser = await getTranslations("user");
-
+  
+  //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("users:edit");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
