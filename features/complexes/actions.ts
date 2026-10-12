@@ -10,7 +10,7 @@ export async function adminAddComplex(formData: FormData) {
   const tComplex = await getTranslations("complex");
   const tValidation = await getTranslations("validationApi");
 
-  //DLA layer, for the latest approch for data security
+  //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("properties:create");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
