@@ -8,7 +8,7 @@ import { serverCan } from "@/lib/permissions";
 export async function adminGetComplexesList(organizationId: string) {
   const t = await getTranslations("general");
 
-  //DLA layer, for the latest approch for data security
+  //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("properties:list:view");
   if (!isAllowed) {
     throw new Error(t("notAllowed"));
