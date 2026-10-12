@@ -31,7 +31,7 @@ export const auth = betterAuth({
       role: {
         type: "string",
         required: false,
-        defaultValue: "user",
+        defaultValue: "admin", //default is admin, so people can invite their tenants.
         input: false, //for security concerns.user can not edit role no mather he/she will try :D
       },
       userMetadata: { type: "json", required: false, input: false },
