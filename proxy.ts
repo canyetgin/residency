@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
+
 import createMiddleware from "next-intl/middleware";
+
+import { auth } from "@/lib/auth";
 import { routing } from "@/i18n/routing";
-import { getRequiredPermissionForRoute, can } from "@/lib/permissions";
+import { can, getRequiredPermissionForRoute } from "@/lib/permissions";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -11,6 +13,7 @@ export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   //for better-auth, disable check permissions for auth routes
+
   if (pathname.startsWith("/api/auth")) {
     return NextResponse.next();
   }
@@ -18,21 +21,38 @@ export default async function proxy(request: NextRequest) {
   //for api routes
 
   if (pathname.startsWith("/api")) {
-    const session = await auth.api.getSession({ headers: await headers() });
-    if (!session)
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      return NextResponse.json(
+        {
+          error: "Unauthorized",
+        },
+        {
+          status: 401,
+        },
+      );
+    }
+
     return NextResponse.next();
   }
 
   //for better ux we need to understand users preffered lang to not the show default lang on each redirect
+
   const localePattern = new URLPattern({
     pathname: `/:locale(${routing.locales.join("|")})/:path*`,
   });
+
   const match = localePattern.exec(request.url);
+
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+
   const currentLocale =
     match?.pathname.groups.locale ||
-    (cookieLocale && routing.locales.includes(cookieLocale as any)
+    (cookieLocale &&
+    routing.locales.includes(cookieLocale as (typeof routing.locales)[number])
       ? cookieLocale
       : routing.defaultLocale);
 
@@ -41,21 +61,23 @@ export default async function proxy(request: NextRequest) {
     : pathname;
 
   // path/url based check for visitng pages
+
   const requiredPermission = getRequiredPermissionForRoute(cleanPathname);
 
   if (requiredPermission) {
-    const session = await auth.api.getSession({ headers: await headers() });
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
 
     // no signed user
-
     if (!session) {
-      // Artık doğru dil çerezini koruyarak yönlendirir
       return NextResponse.redirect(
         new URL(`/${currentLocale}/login`, request.url),
       );
     }
 
-    // signed but dont have permission
+    // signed but dont have permission. This is optimistic check for route level. DAL check needed for each func.
+
     if (!can(session, requiredPermission)) {
       return NextResponse.redirect(new URL(`/${currentLocale}`, request.url));
     }
