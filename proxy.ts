@@ -71,9 +71,14 @@ export default async function proxy(request: NextRequest) {
 
     // no signed user
     if (!session) {
-      return NextResponse.redirect(
-        new URL(`/${currentLocale}/login`, request.url),
+      const url = new URL(`/${currentLocale}/login`, request.url);
+
+      //repect to the next param so login page can redirect to where user came. See in Login Form Compoenent props.
+      url.searchParams.set(
+        "next",
+        request.nextUrl.pathname + request.nextUrl.search,
       );
+      return NextResponse.redirect(url);
     }
 
     // signed but dont have permission. This is optimistic check for route level. DAL check needed for each func.

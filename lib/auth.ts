@@ -16,15 +16,29 @@ const supabasePool = new Pool({
 export const auth = betterAuth({
   database: supabasePool,
   plugins: [admin(), anonymous(), phoneNumber(), twoFactor(), nextCookies()], //based on the doc, nextCookies() always need to be the last idk :D
-  rateLimit: {
-    enabled: true,
-  },
   emailAndPassword: {
     enabled: true,
+    minPasswordLength: 8,
+    maxPasswordLength: 128,
+    requireEmailVerification: true,
+    resetPasswordTokenExpiresIn: 60 * 60,
   },
-  cookieCache: {
+  session: {
+    expiresIn: 60 * 60 * 24 * 7,
+    updateAge: 60 * 60 * 24,
+    cookieCache: { enabled: true, maxAge: 5 * 60 }, // 5 min like our default (Nextjs Config)
+  },
+  rateLimit: {
     enabled: true,
-    maxAge: 5 * 60, // 5 min like our default (Nextjs Config)
+    window: 60,
+    max: 100,
+    storage: "database",
+  },
+  advanced: {
+    useSecureCookies: true,
+  },
+  emailVerification: {
+    sendOnSignUp: true,
   },
   user: {
     additionalFields: {
