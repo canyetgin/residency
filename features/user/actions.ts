@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 
 export async function updateUserAction(formData: FormData) {
-  const t = await getTranslations("general");
+  const t = await getTranslations("general.request");
   const tUser = await getTranslations("user");
 
   //DAL and Zero trust architecture layer, for the latest approch for data security
@@ -37,7 +37,7 @@ export async function adminUpdateUserAction({
   userId: string;
   formData: FormData;
 }) {
-  const t = await getTranslations("general");
+  const t = await getTranslations("general.request");
   const tUser = await getTranslations("user");
 
   //DAL and Zero trust architecture layer, for the latest approch for data security
@@ -65,7 +65,7 @@ export async function adminUpdateUserAction({
 }
 
 export async function adminDeleteUserAction(targetUserId: string) {
-  const t = await getTranslations("general");
+  const t = await getTranslations("general.request");
   const tUser = await getTranslations("user");
 
   //DAL and Zero trust architecture layer, for the latest approch for data security

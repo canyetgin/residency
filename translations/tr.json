@@ -1,6 +1,9 @@
 {
   "general": {
-    "notAllowed": "İzniniz Yok",
+    "request": {
+      "notAllowed": "İzniniz yok",
+      "notFound": "Üzgünüz, burada hiçbir şey bulamadık"
+    },
     "greeting": {
       "morning": "Günaydın! ☀️",
       "afternoon": "İyi Günler! 🌤️",

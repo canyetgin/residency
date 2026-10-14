@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { serverCanMutate } from "@/lib/permissions";
 
 export async function adminAddComplex(formData: FormData) {
-  const t = await getTranslations("general");
+  const t = await getTranslations("general.request");
   const tComplex = await getTranslations("complex");
   const tValidation = await getTranslations("validationApi");
 

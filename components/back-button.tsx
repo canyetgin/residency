@@ -22,7 +22,7 @@ export function BackButton() {
   };
 
   return (
-    <Button variant="outline" onClick={handleBack}>
+    <Button variant="secondary" onClick={handleBack}>
       Geri Dön
     </Button>
   );

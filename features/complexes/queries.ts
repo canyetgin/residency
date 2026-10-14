@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { serverCan } from "@/lib/permissions";
 
 export async function adminGetComplexesList(organizationId: string) {
-  const t = await getTranslations("general");
+  const t = await getTranslations("general.request");
 
   //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("properties:list:view");
