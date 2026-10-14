@@ -1,20 +1,19 @@
-
 import LoginAnimation from "@/components/animations/login";
 import { Card } from "@/components/ui/card";
-import { LoginForm } from "@/components/auth/login-form";
-import { safeRedirect } from "@/lib/utils";
+import { LoginCard } from "@/components/auth/login-card";
+import { Suspense } from "react";
 
 export default async function Login({
   searchParams,
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const { next } = await searchParams;
-
   return (
     <Card className="w-full max-w-sm">
       <LoginAnimation />
-      <LoginForm next={safeRedirect(next)} />
+      <Suspense>
+        <LoginCard searchParams={searchParams} />
+      </Suspense>
     </Card>
   );
 }

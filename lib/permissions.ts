@@ -84,8 +84,6 @@ function check(
 
   return allowedRoles.includes(role);
 }
-
-
 export function can(
   session: MinimumSessionShape | null | undefined,
   permission: Permission,

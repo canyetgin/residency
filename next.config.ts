@@ -4,9 +4,6 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
-  images: {
-    dangerouslyAllowSVG: true,
-  },
   //instead of nextjs default, we use industry standart for saas apps
   cacheLife: {
     default: {
@@ -19,6 +16,10 @@ const nextConfig: NextConfig = {
     rules: {
       "*.lottie": {
         type: "asset",
+      },
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
       },
     },
   },

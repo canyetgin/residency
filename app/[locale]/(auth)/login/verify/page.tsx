@@ -1,5 +1,3 @@
-"use client"; // TODO: Remove this when u will do the actions. and OTP Verification need to be with Redis
-
 import { RefreshCwIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -18,12 +16,26 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
+import { auth } from "@/lib/auth";
+import { cookies, headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function InputOTPForm() {
-  const router = useRouter();
-  const t = useTranslations("auth.otp");
+export default async function InputOTPForm() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  const cookieStore = await cookies();
+  const locale = await getLocale();
+
+  if (session) {
+    redirect(`/${locale}/`);
+  }
+
+  const hasInFlightAuth = cookieStore.get("better-auth.two_factor")?.value;
+  if (!hasInFlightAuth) {
+    redirect(`/${locale}/login`);
+  }
+
+  const t = await getTranslations("auth.otp");
 
   return (
     <Card className="mx-auto max-w-md">
@@ -68,13 +80,7 @@ export default function InputOTPForm() {
       </CardContent>
       <CardFooter>
         <Field>
-          <Button
-            type="submit"
-            className="w-full"
-            onClick={() => {
-              router.replace("/dashboard");
-            }}
-          >
+          <Button type="submit" className="w-full">
             {t("action")}
           </Button>
           <div className="text-sm text-muted-foreground">
