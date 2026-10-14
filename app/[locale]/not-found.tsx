@@ -1,0 +1,23 @@
+import { BackButton } from "@/components/back-button";
+import { Card, CardTitle } from "@/components/ui/card";
+import NotFoundAnimation from "@/public/animations/404.lottie";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { getTranslations } from "next-intl/server";
+
+export default async function NotFound() {
+  const t = await getTranslations();
+  return (
+    <div className="flex flex-col items-center justify-center w-screen min-w-screen h-screen">
+      <div className="h-[210px]">
+        <DotLottieReact
+          renderConfig={{ autoResize: true }}
+          layout={{ fit: "contain" }}
+          src={NotFoundAnimation}
+          autoplay
+        />
+      </div>
+      <p>We couldn't find anthing here</p>
+      <BackButton />
+    </div>
+  );
+}

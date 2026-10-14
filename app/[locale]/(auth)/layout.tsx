@@ -1,4 +1,4 @@
-import AuthMenu from "@/components/auth-menu";
+import { AuthMenu } from "@/components/auth-menu";
 interface AuthLayoutProps {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;

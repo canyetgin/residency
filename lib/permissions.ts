@@ -107,7 +107,7 @@ export async function serverCanMutate(
 ): Promise<boolean> {
   const session = await auth.api.getSession({
     headers: await headers(),
-    //IMPORTANT: in MUTATIONS, never trust to better-auth cookie cache. It's industry standart for DAL and Zero Trust Policy
+    //IMPORTANT: in MUTATIONS, never trust to better-auth 5 min cookie cache. It's industry standart for DAL and Zero Trust Policy
     query: { disableCookieCache: true },
   });
 

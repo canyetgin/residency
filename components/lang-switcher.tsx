@@ -16,7 +16,7 @@ const items = [
   { labelKey: "en", value: "en" },
 ];
 
-export default function LangSwitcher() {
+export function LangSwitcher() {
   const { currentLocale, changeLocale } = useChangeLocale();
   const t = useTranslations("general.widgets.langSwitcher");
 
