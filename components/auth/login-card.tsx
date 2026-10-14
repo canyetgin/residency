@@ -13,7 +13,11 @@ export async function LoginCard({
   const { next } = await searchParams;
   const locale = await getLocale();
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await auth.api.getSession({
+    headers: await headers(),
+    //in critical pages, never trust to better-auth cookie cache
+    query: { disableCookieCache: true },
+  });
 
   //chek session. if user has session redirect to dashboard. if not look the next param and try to redirect
   if (session) {

@@ -1,16 +1,16 @@
 "user server";
 
 import { auth } from "@/lib/auth";
-import { serverCan } from "@/lib/permissions";
+import { serverCanMutate } from "@/lib/permissions";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 
 export async function updateUserAction(formData: FormData) {
   const t = await getTranslations("general");
   const tUser = await getTranslations("user");
-  
+
   //DAL and Zero trust architecture layer, for the latest approch for data security
-  const isAllowed = await serverCan("profile:update");
+  const isAllowed = await serverCanMutate("properties:create");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
 
@@ -39,9 +39,9 @@ export async function adminUpdateUserAction({
 }) {
   const t = await getTranslations("general");
   const tUser = await getTranslations("user");
-  
+
   //DAL and Zero trust architecture layer, for the latest approch for data security
-  const isAllowed = await serverCan("users:edit");
+  const isAllowed = await serverCanMutate("properties:create");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
   const body = Object.fromEntries(formData.entries());
@@ -67,9 +67,9 @@ export async function adminUpdateUserAction({
 export async function adminDeleteUserAction(targetUserId: string) {
   const t = await getTranslations("general");
   const tUser = await getTranslations("user");
-  
+
   //DAL and Zero trust architecture layer, for the latest approch for data security
-  const isAllowed = await serverCan("users:edit");
+  const isAllowed = await serverCanMutate("properties:create");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
 

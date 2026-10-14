@@ -3,7 +3,7 @@
 import { updateTag } from "next/cache";
 import { supabase } from "@/lib/supabase";
 import { getTranslations } from "next-intl/server";
-import { serverCan } from "@/lib/permissions";
+import { serverCanMutate } from "@/lib/permissions";
 
 export async function adminAddComplex(formData: FormData) {
   const t = await getTranslations("general");
@@ -11,7 +11,7 @@ export async function adminAddComplex(formData: FormData) {
   const tValidation = await getTranslations("validationApi");
 
   //DAL and Zero trust architecture layer, for the latest approch for data security
-  const isAllowed = await serverCan("properties:create");
+  const isAllowed = await serverCanMutate("properties:create");
 
   if (!isAllowed) return { success: false, error: t("notAllowed") };
 

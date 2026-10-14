@@ -22,7 +22,11 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function InputOTPForm() {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await auth.api.getSession({
+    headers: await headers(),
+    //in critical pages, never trust to better-auth cookie cache
+    query: { disableCookieCache: true },
+  });
   const cookieStore = await cookies();
   const locale = await getLocale();
 

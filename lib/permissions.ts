@@ -93,8 +93,22 @@ export function can(
 
 //hepler for serverside func/compoenents and api route. Always use this for DAL and Zero Trust.
 export async function serverCan(permission: Permission): Promise<boolean> {
+  //for normal fetches we can trust the better-auth cookie cache
   const session = await auth.api.getSession({
     headers: await headers(),
+  });
+
+  return check(session, permission);
+}
+
+//hepler for serverside func/compoenents and api route. Always use this for DAL and Zero Trust.
+export async function serverCanMutate(
+  permission: Permission,
+): Promise<boolean> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+    //IMPORTANT: in MUTATIONS, never trust to better-auth cookie cache. It's industry standart for DAL and Zero Trust Policy
+    query: { disableCookieCache: true },
   });
 
   return check(session, permission);
