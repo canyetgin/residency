@@ -27,6 +27,7 @@ const geistMono = Geist_Mono({
 export default async function NotFound() {
   return (
     <html
+     lang="en"
       className={cn(
         "h-full",
         "antialiased",
