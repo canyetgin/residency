@@ -1,6 +1,8 @@
 //this not found page is global fallback for non localized urls (ex:/public/non-exits.png)
-//actual locale aware not found is under the [locale] dynamic route
-
+//actual locale aware not found is under the [locale] dynamic 
+// mentioned in next-intl docs: prevents next.js build failures since standard not-found files require a parent app/layout.tsx, which is missing because our root layout is nested inside app/[locale]/.
+//it acts as a standalone shell catching non-localized urls and broken asset files (.png).
+ 
 import "./globals.css";
 
 import { BackButton } from "@/components/back-button";
