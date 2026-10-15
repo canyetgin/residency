@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       expire: 3600,
     },
   },
+  //reason is mentioned in app/global-not-found.tsx
+  experimental: {
+    globalNotFound: true,
+  },
   turbopack: {
     rules: {
       "*.lottie": {
