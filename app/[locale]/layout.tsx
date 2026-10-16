@@ -7,10 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTheme } from "@teispace/next-themes/server";
 import { routing } from "@/i18n/routing";
 import { Suspense } from "react";
-import { getMessages } from "next-intl/server";
-import pick from "lodash/pick";
-import { locale as getLocale } from "next/root-params";
-
+import { getLocale } from "next-intl/server";
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
@@ -38,13 +35,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentLocale = await getLocale();
+  const locale = await getLocale();
   // error.tsx is always a client component cuz next.js uses it as a react error boundary
   // we need to expose something to that client component to get our translations so useTranslations() reads from Provider
 
   return (
     <html
-      lang={currentLocale}
+      lang={locale}
       suppressHydrationWarning
       className={cn(
         "h-full",
