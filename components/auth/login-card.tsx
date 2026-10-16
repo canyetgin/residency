@@ -1,7 +1,7 @@
-import { safeRedirect } from "@/lib/utils";
+import { getGreeting, safeRedirect } from "@/lib/utils";
 import { LoginForm } from "./login-form";
 import { auth } from "@/lib/auth";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation"; // 1. Redirect import edildi
 
@@ -12,6 +12,8 @@ export async function LoginCard({
 }) {
   const { next } = await searchParams;
   const locale = await getLocale();
+
+  const greeting = await getGreeting();
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -25,5 +27,5 @@ export async function LoginCard({
     redirect(destination);
   }
 
-  return <LoginForm next={safeRedirect(next)} />;
+  return <LoginForm greeting={greeting} next={safeRedirect(next)} />;
 }

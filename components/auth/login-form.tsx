@@ -19,17 +19,21 @@ import {
 import { Marker, MarkerContent } from "@/components/ui/marker";
 import { toast } from "@/components/ui/toast";
 import { useTranslations } from "next-intl";
-import { useLocalGreeting } from "@/hooks/use-local-greeting";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema, type signInValues } from "@/schemes/auth.sceheme";
 import { authClient } from "@/lib/auth-client";
 
-export function LoginForm({ next }: { next: string }) {
+export function LoginForm({
+  next,
+  greeting,
+}: {
+  next: string;
+  greeting: string;
+}) {
   const tSignIn = useTranslations("auth.signIn");
   const tInput = useTranslations("general.input");
-  const greeting = useLocalGreeting();
   const router = useRouter();
   const {
     handleSubmit,
