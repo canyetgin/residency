@@ -9,6 +9,7 @@ import { routing } from "@/i18n/routing";
 import { Suspense } from "react";
 import { getMessages } from "next-intl/server";
 import pick from "lodash/pick";
+import { locale as getLocale } from "next/root-params";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -27,11 +28,6 @@ export const metadata: Metadata = {
   description: "Manage ez :D",
 };
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}
-
 //since we enabled the prerender and component caching, we need to do this to not get err bc of using next-intl.
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -39,16 +35,16 @@ export function generateStaticParams() {
 
 export default async function RootLayout({
   children,
-  params,
-}: RootLayoutProps) {
-  const { locale } = await params;
+}: {
+  children: React.ReactNode;
+}) {
+  const currentLocale = await getLocale();
   // error.tsx is always a client component cuz next.js uses it as a react error boundary
   // we need to expose something to that client component to get our translations so useTranslations() reads from Provider
-  const tMinRequiredTranslations = await getMessages();
 
   return (
     <html
-      lang={locale}
+      lang={currentLocale}
       suppressHydrationWarning
       className={cn(
         "h-full",
@@ -60,13 +56,7 @@ export default async function RootLayout({
       )}
     >
       <body className="no-translate">
-        <NextIntlClientProvider
-          messages={pick(
-            tMinRequiredTranslations,
-            "general.error",
-            "general.goBack",
-          )}
-        >
+        <NextIntlClientProvider>
           {/* we used suspense for next-intl issues: when changing lang, it gives prefect and cache issue bc of theme shell :D. Felt like loop hole */}
           <Suspense fallback={null}>
             <ThemeShell>

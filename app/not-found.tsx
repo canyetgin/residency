@@ -1,8 +1,7 @@
 //this not found page is global fallback for non localized urls (ex:/public/non-exits.png)
-//actual locale aware not found is under the [locale] dynamic 
+//actual locale aware not found is under the [locale] dynamic
 // mentioned in next-intl docs: prevents next.js build failures since standard not-found files require a parent app/layout.tsx, which is missing because our root layout is nested inside app/[locale]/.
 //it acts as a standalone shell catching non-localized urls and broken asset files (.png).
- 
 import "@/app/globals.css";
 
 import { BackButton } from "@/components/back-button";
@@ -13,6 +12,7 @@ import { cn } from "cn";
 import { getTranslations } from "next-intl/server";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
 import { locale } from "next/root-params";
+import { Suspense } from "react";
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
@@ -27,7 +27,7 @@ const geistMono = Geist_Mono({
 export default async function NotFound() {
   return (
     <html
-     lang="en"
+      lang="en"
       className={cn(
         "h-full",
         "antialiased",

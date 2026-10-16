@@ -8,7 +8,6 @@ export default async function Login({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  throw new Error("Test for err pages");
   return (
     <Card className="w-full max-w-sm">
       <LoginAnimation />
