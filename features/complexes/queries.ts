@@ -11,7 +11,7 @@ export async function adminGetComplexesList(organizationId: string) {
   //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("properties:list:view");
   if (!isAllowed) {
-    throw new Error(t("notAllowed"));
+    throw new Error("Not Allowed");
   }
 
   return getCachedComplexes(organizationId);
@@ -20,7 +20,6 @@ export async function adminGetComplexesList(organizationId: string) {
 async function getCachedComplexes(organizationId: string) {
   "use cache";
 
- 
   cacheTag(`complex-list-${organizationId}`);
 
   const { data, error } = await supabase
@@ -30,8 +29,8 @@ async function getCachedComplexes(organizationId: string) {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Veri çekme hatası:", error.message);
-    throw new Error("Siteler yüklenemedi.");
+    console.error("Supabase ERR:", error.message);
+    throw new Error("Couldn't fetch complexes");
   }
 
   return data || [];

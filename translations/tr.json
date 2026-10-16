@@ -1,5 +1,12 @@
 {
   "general": {
+    "error": {
+      "title": "Bir şeyler yanlış gitti",
+      "description": "Bu sayfayı yükleyemedik. Lütfen tekrar deneyin.",
+      "retry": "Tekrar dene",
+      "reference": "Referans ID:"
+    },
+    "goBack": "Geri Dön",
     "request": {
       "notAllowed": "İzniniz yok",
       "notFound": "Üzgünüz, burada hiçbir şey bulamadık"

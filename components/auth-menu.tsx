@@ -3,9 +3,6 @@ import { ThemeSwitcher } from "./theme-switcher";
 import { ButtonGroup } from "./ui/button-group";
 
 export function AuthMenu() {
-  if (typeof window !== "undefined") {
-    console.log("page load:", performance.getEntriesByType("navigation"));
-  }
   return (
     <ButtonGroup>
       <ButtonGroup>

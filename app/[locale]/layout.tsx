@@ -7,6 +7,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTheme } from "@teispace/next-themes/server";
 import { routing } from "@/i18n/routing";
 import { Suspense } from "react";
+import { getMessages } from "next-intl/server";
+import pick from "lodash/pick";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -40,6 +42,9 @@ export default async function RootLayout({
   params,
 }: RootLayoutProps) {
   const { locale } = await params;
+  // error.tsx is always a client component cuz next.js uses it as a react error boundary
+  // we need to expose something to that client component to get our translations so useTranslations() reads from Provider
+  const tMinRequiredTranslations = await getMessages();
 
   return (
     <html
@@ -55,7 +60,13 @@ export default async function RootLayout({
       )}
     >
       <body className="no-translate">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider
+          messages={pick(
+            tMinRequiredTranslations,
+            "general.error",
+            "general.goBack",
+          )}
+        >
           {/* we used suspense for next-intl issues: when changing lang, it gives prefect and cache issue bc of theme shell :D. Felt like loop hole */}
           <Suspense fallback={null}>
             <ThemeShell>

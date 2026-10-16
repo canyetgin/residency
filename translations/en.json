@@ -1,5 +1,12 @@
 {
   "general": {
+    "error": {
+      "title": "Something went wrong",
+      "description": "We couldn't load this page. Please try again.",
+      "retry": "Try again",
+      "reference":"Reference ID:"
+    },
+    "goBack": "Go Back",
     "request": {
       "notAllowed": "Not Allowed",
       "notFound": "Sorry, We couldn't find anthing here"
