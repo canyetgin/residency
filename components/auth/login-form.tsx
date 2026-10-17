@@ -24,17 +24,32 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema, type signInValues } from "@/schemes/auth.sceheme";
 import { authClient } from "@/lib/auth-client";
+import { useState, useEffect } from "react";
 
-export function LoginForm({
-  next,
-  greeting,
-}: {
-  next: string;
-  greeting: string;
-}) {
+type Period = "night" | "morning" | "afternoon" | "evening";
+
+function getPeriod(): Period {
+  const hour = new Date().getHours();
+  if (hour < 5) return "night";
+  if (hour < 12) return "morning";
+  if (hour < 17) return "afternoon";
+  return "evening";
+}
+
+export function LoginForm({ next }: { next: string }) {
+  const tGreeting = useTranslations("general.greeting");
   const tSignIn = useTranslations("auth.signIn");
   const tInput = useTranslations("general.input");
+
   const router = useRouter();
+
+  const t = useTranslations("general.greeting");
+  const [period, setPeriod] = useState<Period | null>(null);
+
+  useEffect(() => {
+    setPeriod(getPeriod());
+  }, []);
+
   const {
     handleSubmit,
     register,
@@ -51,26 +66,29 @@ export function LoginForm({
     });
 
     if (error) {
-      if (error.status === 403)
+      if (error.status === 403) {
         toast.add({
           type: "error",
           description:
             "E-posta adresiniz doğrulanmamış. Gelen kutunuzdaki bağlantıyı kullanın.",
           priority: "high",
         });
-      if (error.status === 429)
+        return;
+      }
+      if (error.status === 429) {
         toast.add({
           type: "error",
           description: "Çok fazla deneme yaptınız. Biraz sonra tekrar deneyin.",
           priority: "high",
         });
+        return;
+      }
 
       toast.add({
         type: "error",
         description: "E-posta veya şifre hatalı",
         priority: "high",
       });
-
       return;
     }
 
@@ -82,7 +100,7 @@ export function LoginForm({
     <>
       <CardHeader>
         <CardTitle className="flex items-center">
-          {tSignIn("title")}, {greeting}
+          {tSignIn("title")}, {tGreeting(period ?? "morning")}
         </CardTitle>
         <CardDescription>{tSignIn("desc")}</CardDescription>
       </CardHeader>

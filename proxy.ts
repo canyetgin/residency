@@ -11,7 +11,6 @@ const intlMiddleware = createMiddleware(routing);
 
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
   //for better-auth, disable check permissions for auth routes
 
   if (pathname.startsWith("/api/auth")) {
@@ -47,18 +46,18 @@ export default async function proxy(request: NextRequest) {
 
   const match = localePattern.exec(request.url);
 
-  const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+  // No locale in the path (e.g. "/" or "/dashboard"): let next-intl resolve it
+  // (NEXT_LOCALE cookie -> Accept-Language -> default) and redirect to "/<locale>/...".
+  // Auth/permission checks then run on the localized URL, so the login redirect
+  // always uses the user's real locale instead of the default one.
+  if (!match) {
+    return intlMiddleware(request);
+  }
 
-  const currentLocale =
-    match?.pathname.groups.locale ||
-    (cookieLocale &&
-    routing.locales.includes(cookieLocale as (typeof routing.locales)[number])
-      ? cookieLocale
-      : routing.defaultLocale);
+  // From here on the locale always comes from the URL.
+  const currentLocale = match.pathname.groups.locale;
 
-  const cleanPathname = match
-    ? `/${match.pathname.groups.path || ""}`
-    : pathname;
+  const cleanPathname = `/${match.pathname.groups.path || ""}`;
 
   // path/url based check for visitng pages
 
@@ -74,10 +73,7 @@ export default async function proxy(request: NextRequest) {
       const url = new URL(`/${currentLocale}/login`, request.url);
 
       //repect to the next param so login page can redirect to where user came. See in Login Form Compoenent props.
-      url.searchParams.set(
-        "next",
-        request.nextUrl.pathname + request.nextUrl.search,
-      );
+      url.searchParams.set("next", cleanPathname + request.nextUrl.search);
       return NextResponse.redirect(url);
     }
 
