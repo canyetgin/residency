@@ -158,7 +158,7 @@ export function LoginForm({ next }: { next: string }) {
           className="w-full font-medium"
         >
           {isSubmitting && <Loader2 className="animate-spin" />}
-          tSignIn("action")
+          {tSignIn("action")}
         </Button>
 
         <Marker variant="separator" className="my-2">

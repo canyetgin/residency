@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { LoginCard } from "@/components/auth/login-card";
 import { Suspense } from "react";
 import { LoaderIcon } from "lucide-react";
+import Link from "next/link";
 
 export default async function Login({
   searchParams,
@@ -21,6 +22,7 @@ export default async function Login({
         }
       >
         <LoginCard searchParams={searchParams} />
+        <Link href={"/a.png"}>not exist (not instant hatası)</Link>
       </Suspense>
     </Card>
   );
