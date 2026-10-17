@@ -115,40 +115,54 @@ export async function serverCanMutate(
 }
 
 // check for dynamic or any kinda level of deep path
-function routeMatches(pattern: string, pathname: string): boolean {
+// returns the number of dynamic segments used, or null if the route does not match.
+// fewer dynamic segments = more specific route.
+function routeMatches(pattern: string, pathname: string): number | null {
   const patternParts = pattern.split("/").filter(Boolean);
 
   const pathnameParts = pathname.split("/").filter(Boolean);
 
   if (patternParts.length !== pathnameParts.length) {
-    return false;
+    return null;
   }
 
-  return patternParts.every((part, index) => {
+  let dynamicCount = 0;
+
+  for (let i = 0; i < patternParts.length; i++) {
+    const part = patternParts[i];
     const isDynamicSegment = part.startsWith("[") && part.endsWith("]");
 
     if (isDynamicSegment) {
-      return Boolean(pathnameParts[index]);
+      if (!pathnameParts[i]) return null;
+      dynamicCount++;
+    } else if (part !== pathnameParts[i]) {
+      return null;
     }
+  }
 
-    return part === pathnameParts[index];
-  });
+  return dynamicCount;
 }
 
 //helper func for middleware/proxy
+//most specific route wins, so the order of PERMISSION_MAP does not matter.
 
 export function getRequiredPermissionForRoute(
   pathname: string,
 ): Permission | null {
-  for (const [permission, config] of Object.entries(PERMISSION_MAP)) {
-    const matches = config.routes.some((route) =>
-      routeMatches(route, pathname),
-    );
+  let best: { permission: Permission; dynamicCount: number } | null = null;
 
-    if (matches) {
-      return permission as Permission;
+  for (const [permission, config] of Object.entries(PERMISSION_MAP)) {
+    for (const route of config.routes) {
+      const dynamicCount = routeMatches(route, pathname);
+
+      if (
+        dynamicCount !== null &&
+        (!best || dynamicCount < best.dynamicCount)
+      ) {
+        best = { permission: permission as Permission, dynamicCount };
+      }
     }
   }
 
-  return null;
+  return best?.permission ?? null;
 }
