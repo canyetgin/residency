@@ -43,7 +43,6 @@ export function LoginForm({ next }: { next: string }) {
 
   const router = useRouter();
 
-  const t = useTranslations("general.greeting");
   const [period, setPeriod] = useState<Period | null>(null);
 
   useEffect(() => {

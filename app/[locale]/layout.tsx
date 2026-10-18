@@ -55,7 +55,7 @@ export default async function RootLayout({
       <body className="no-translate">
         <NextIntlClientProvider>
           {/* we used suspense for next-intl issues: when changing lang, it gives prefect and cache issue bc of theme shell :D. Felt like loop hole */}
-          <Suspense fallback={null}>
+          <Suspense>
             <ThemeShell>
               <main>{children}</main>
             </ThemeShell>
@@ -68,13 +68,12 @@ export default async function RootLayout({
 
 //to prevent hydration err for prefetch and cached compoenents. this wont disable prefetch and caching for all sub childs. it will create a dynamic hole for subtree.
 async function ThemeShell({ children }: { children: React.ReactNode }) {
-  const theme = await getTheme();
+  const initialTheme = await getTheme();
 
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme={theme || "system"}
-      enableSystem
+      initialTheme={initialTheme ?? undefined}
       disableTransitionOnChange
       transition
     >

@@ -5,6 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { redirect } from "@/i18n/navigation"; // 1. Redirect import edildi
 
+
 export async function LoginCard({
   searchParams,
 }: {
