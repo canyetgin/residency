@@ -3,8 +3,7 @@ import { LoginForm } from "./login-form";
 import { auth } from "@/lib/auth";
 import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
-import { redirect } from "@/i18n/navigation"; // 1. Redirect import edildi
-
+import { redirect } from "@/i18n/navigation";
 
 export async function LoginCard({
   searchParams,
