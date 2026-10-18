@@ -36,8 +36,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  // error.tsx is always a client component cuz next.js uses it as a react error boundary
-  // we need to expose something to that client component to get our translations so useTranslations() reads from Provider
 
   return (
     <html
