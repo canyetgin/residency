@@ -8,10 +8,13 @@ import { BackButton } from "@/components/back-button";
 import { Card, CardTitle } from "@/components/ui/card";
 import NotFoundAnimation from "@/public/animations/404.lottie";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { ThemeProvider } from "@teispace/next-themes";
+import { getThemeScript } from "@teispace/next-themes/server";
 import { cn } from "cn";
 import { getTranslations } from "next-intl/server";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
 import { locale } from "next/root-params";
+import Script from "next/script";
 import { Suspense } from "react";
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -25,6 +28,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 export default async function NotFound() {
+  const themeScript = getThemeScript({
+    attribute: "class",
+  });
   return (
     <html
       lang="en"
@@ -37,18 +43,34 @@ export default async function NotFound() {
         figtree.variable,
       )}
     >
+      <head>
+        {/* to prevent theme flickering on initial load. we did this c of the offical @teispace/next-themes doc recommend this way. */}
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: themeScript,
+          }}
+        />
+      </head>
       <body className="no-translate">
-        <main className="flex flex-col items-center justify-center w-screen min-w-screen h-screen gap-2">
-          <div className="h-[210px]">
-            <DotLottieReact
-              renderConfig={{ autoResize: true }}
-              layout={{ fit: "contain" }}
-              src={NotFoundAnimation}
-              autoplay
-            />
-          </div>
-          <p>Sorry, We couldn't find anthing here</p>
-        </main>
+        <ThemeProvider
+          attribute="class"
+          noScript
+          disableTransitionOnChange
+          transition
+        >
+          <main className="flex flex-col items-center justify-center w-screen min-w-screen h-screen gap-2">
+            <div className="h-[210px]">
+              <DotLottieReact
+                renderConfig={{ autoResize: true }}
+                layout={{ fit: "contain" }}
+                src={NotFoundAnimation}
+                autoplay
+              />
+            </div>
+            <p>Sorry, We couldn't find anthing here</p>
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

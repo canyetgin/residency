@@ -59,7 +59,9 @@ export default async function RootLayout({
       )}
     >
       <head>
+        {/* to prevent theme flickering on initial load. we did this c of the offical @teispace/next-themes doc recommend this way. */}
         <script
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: themeScript,
           }}
