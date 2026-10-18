@@ -9,7 +9,7 @@ import { Toggle } from "./ui/toggle";
 
 export function ThemeSwitcher() {
   const { setTheme, resolvedTheme } = useTheme();
-  //lib's own solution for hydraiton errs
+  //lib's own solution for hydraiton errs, else we had to wrap the whole ThemeProvider with suspense, which will sacrifies the app shell built for prefetching and cached compoenents.
   const hydrated = useHydrated();
   const t = useTranslations("general.widgets.themeSwitcher");
 
