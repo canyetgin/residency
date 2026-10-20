@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
+import { toast } from "sonner";
 import GoogleSocialIcon from "@/public/socials/google-icon.svg";
 import {
   CardHeader,
@@ -17,7 +18,6 @@ import {
   FieldError,
 } from "@/components/ui/field";
 import { Marker, MarkerContent } from "@/components/ui/marker";
-import { toast } from "@/components/ui/toast";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -66,27 +66,24 @@ export function LoginForm({ next }: { next: string }) {
 
     if (error) {
       if (error.status === 403) {
-        toast.add({
-          type: "error",
+        toast.error("Hata", {
           description:
             "E-posta adresiniz doğrulanmamış. Gelen kutunuzdaki bağlantıyı kullanın.",
-          priority: "high",
+          position: "bottom-center",
         });
         return;
       }
       if (error.status === 429) {
-        toast.add({
-          type: "error",
+        toast.error("Hata", {
           description: "Çok fazla deneme yaptınız. Biraz sonra tekrar deneyin.",
-          priority: "high",
+          position: "bottom-center",
         });
         return;
       }
 
-      toast.add({
-        type: "error",
+      toast.error("Hata", {
         description: "E-posta veya şifre hatalı",
-        priority: "high",
+        position: "bottom-center",
       });
       return;
     }
@@ -187,7 +184,15 @@ export function LoginForm({ next }: { next: string }) {
             {tSignIn("registerAction")}
           </Button>
         </div>
-        <Button onClick={toast.add}></Button>
+        <Button
+          onClick={() => {
+            toast.error("title", {
+              position: "bottom-center",
+              description:
+                "Çok fazla deneme yaptınız. Biraz sonra tekrar deneyin.",
+            });
+          }}
+        ></Button>
       </CardFooter>
     </>
   );

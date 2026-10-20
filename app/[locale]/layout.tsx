@@ -10,6 +10,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
+import { Toaster } from "@/components/ui/sonner";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -65,6 +66,7 @@ export default async function RootLayout({
             systemThemeMap={{ light: "light", dark: "dark" }}
           >
             <main>{children}</main>
+            <Toaster closeButton  />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
