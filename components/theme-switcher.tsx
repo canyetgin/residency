@@ -1,8 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "@teispace/next-themes";
-import { useHydrated } from "@teispace/next-themes/hooks/use-hydrated";
+import { useHydrated, useTheme } from "@wrksz/themes/client";
 import { useTranslations } from "next-intl";
 
 import { Toggle } from "./ui/toggle";

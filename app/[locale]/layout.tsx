@@ -3,9 +3,10 @@ import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "../globals.css";
 
 import { cn } from "cn";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { getTheme } from "@wrksz/themes/next";
+import { ThemeProvider } from "@wrksz/themes/next/extended";
 import { NextIntlClientProvider } from "next-intl";
-import { getThemeScript } from "@teispace/next-themes/server";
+
 import { getLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
@@ -41,10 +42,6 @@ export default async function RootLayout({
 }) {
   const locale = await getLocale();
 
-  const themeScript = getThemeScript({
-    attribute: "class",
-  });
-
   return (
     <html
       lang={locale}
@@ -58,22 +55,14 @@ export default async function RootLayout({
         figtree.variable,
       )}
     >
-      <head>
-        {/* to prevent theme flickering on initial load. we did this c of the offical @teispace/next-themes doc recommend this way. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: themeScript,
-          }}
-        />
-      </head>
-
       <body className="no-translate">
         <NextIntlClientProvider>
           <ThemeProvider
-            attribute="class"
-            noScript
+            storage="hybrid"
+            themeColor={{ light: "#ffffff", dark: "#0a0a0a" }}
             disableTransitionOnChange
-            transition
+            enableSameDocumentSync
+            systemThemeMap={{ light: "light", dark: "dark" }}
           >
             <main>{children}</main>
           </ThemeProvider>

@@ -8,8 +8,9 @@ import { BackButton } from "@/components/back-button";
 import { Card, CardTitle } from "@/components/ui/card";
 import NotFoundAnimation from "@/public/animations/404.lottie";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { ThemeProvider } from "@teispace/next-themes";
-import { getThemeScript } from "@teispace/next-themes/server";
+import { getTheme } from "@wrksz/themes/next";
+import { ThemeProvider } from "@wrksz/themes/next/extended";
+
 import { cn } from "cn";
 import { getTranslations } from "next-intl/server";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
@@ -27,10 +28,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
 export default async function NotFound() {
-  const themeScript = getThemeScript({
-    attribute: "class",
-  });
   return (
     <html
       lang="en"
@@ -43,20 +42,13 @@ export default async function NotFound() {
         figtree.variable,
       )}
     >
-      <head>
-        {/* to prevent theme flickering on initial load. we did this c of the offical @teispace/next-themes doc recommend this way. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: themeScript,
-          }}
-        />
-      </head>
       <body className="no-translate">
         <ThemeProvider
-          attribute="class"
-          noScript
+          storage="hybrid"
+          themeColor={{ light: "#ffffff", dark: "#0a0a0a" }}
           disableTransitionOnChange
-          transition
+          enableSameDocumentSync
+          systemThemeMap={{ light: "light", dark: "dark" }}
         >
           <main className="flex flex-col items-center justify-center w-screen min-w-screen h-screen gap-2">
             <div className="h-[210px]">

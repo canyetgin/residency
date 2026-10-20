@@ -12,7 +12,7 @@
     "@base-ui/react": "^1.9.0",
     "@hookform/resolvers": "^5.9.2",
     "@lottiefiles/dotlottie-react": "^0.20.0",
-    "@teispace/next-themes": "^3.0.2",
+    "@wrksz/themes": "^2.1.1",
     "better-auth": "^1.7.10",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.0",
