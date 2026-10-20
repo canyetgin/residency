@@ -24,7 +24,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema, type signInValues } from "@/schemes/auth.sceheme";
 import { authClient } from "@/lib/auth-client";
-import { useState, useEffect } from "react";
 
 type Period = "night" | "morning" | "afternoon" | "evening";
 
@@ -42,12 +41,6 @@ export function LoginForm({ next }: { next: string }) {
   const tInput = useTranslations("general.input");
 
   const router = useRouter();
-
-  const [period, setPeriod] = useState<Period | null>(null);
-
-  useEffect(() => {
-    setPeriod(getPeriod());
-  }, []);
 
   const {
     handleSubmit,
@@ -96,7 +89,8 @@ export function LoginForm({ next }: { next: string }) {
     <>
       <CardHeader>
         <CardTitle className="flex items-center">
-          {tSignIn("title")}, {tGreeting(period ?? "morning")}
+          {tSignIn("title")},{" "}
+          <span suppressHydrationWarning>{tGreeting(getPeriod())}</span>
         </CardTitle>
         <CardDescription>{tSignIn("desc")}</CardDescription>
       </CardHeader>
