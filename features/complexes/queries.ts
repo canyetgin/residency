@@ -10,6 +10,7 @@ import { z } from "zod";
 export async function adminGetComplexesList(
   organizationId: string,
 ): Promise<ComplexDTO[]> {
+  //precheck for param type
   const validatedInput = organizationIdSchema.safeParse(organizationId);
   if (!validatedInput.success) {
     throw new Error("Invalid format");
