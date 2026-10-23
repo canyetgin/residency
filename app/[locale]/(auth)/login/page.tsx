@@ -1,9 +1,9 @@
 import LoginAnimation from '@/components/animations/login';
-import { Card } from '@/components/ui/card';
 import { LoginCard } from '@/components/auth/login-card';
-import { Suspense } from 'react';
+import { Card } from '@/components/ui/card';
 import { LoaderIcon } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 export default async function Login({
   searchParams,

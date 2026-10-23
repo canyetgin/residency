@@ -1,11 +1,11 @@
 import 'server-only'; // safe guard for server-side execution only
 
+import { serverCan } from '@/lib/permissions';
 import { cacheTag } from 'next/cache';
 //@ts-expect-error: we will implement this later
 import { supabase } from '@/lib/supabase/server';
-import { serverCan } from '@/lib/permissions';
+import { ComplexDTO, complexDtoSchema } from '@/schemes/complexes.scheme';
 import { organizationIdSchema } from '@/schemes/organizations.scheme';
-import { complexDtoSchema, ComplexDTO } from '@/schemes/complexes.scheme';
 import { z } from 'zod';
 
 export async function adminGetComplexesList(organizationId: string): Promise<ComplexDTO[]> {

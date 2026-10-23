@@ -1,9 +1,8 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { BackButton } from '@/components/back-button';
-import ErrorAnimation from '@/public/animations/error.lottie';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { useTranslations } from 'next-intl';
 
 interface DashboardErrorProps {
   error: Error & {

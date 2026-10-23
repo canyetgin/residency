@@ -1,7 +1,7 @@
 'use client';
 
-import { Moon, Sun } from 'lucide-react';
 import { useHydrated, useTheme } from '@wrksz/themes/client';
+import { Moon, Sun } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { Toggle } from './ui/toggle';

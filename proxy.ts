@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
 
 import createMiddleware from 'next-intl/middleware';
 
-import { auth } from '@/lib/auth';
 import { routing } from '@/i18n/routing';
+import { auth } from '@/lib/auth';
 import { can, getRequiredPermissionForRoute } from '@/lib/permissions';
 
 const intlMiddleware = createMiddleware(routing);

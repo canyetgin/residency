@@ -4,19 +4,12 @@
 //it acts as a standalone shell catching non-localized urls and broken asset files (.png).
 import '@/app/globals.css';
 
-import { BackButton } from '@/components/back-button';
-import { Card, CardTitle } from '@/components/ui/card';
 import NotFoundAnimation from '@/public/animations/404.lottie';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { getTheme } from '@wrksz/themes/next';
 import { ThemeProvider } from '@wrksz/themes/next/extended';
 
 import { cn } from 'cn';
-import { getTranslations } from 'next-intl/server';
 import { Figtree, Geist, Geist_Mono } from 'next/font/google';
-import { locale } from 'next/root-params';
-import Script from 'next/script';
-import { Suspense } from 'react';
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
@@ -59,7 +52,7 @@ export default async function NotFound() {
                 autoplay
               />
             </div>
-            <p>Sorry, We couldn't find anthing here</p>
+            <p>Sorry, We couldn&apos;t find anthing here</p>
           </main>
         </ThemeProvider>
       </body>

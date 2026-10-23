@@ -16,8 +16,8 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { getTranslations, getLocale } from 'next-intl/server';
 import { auth } from '@/lib/auth';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 

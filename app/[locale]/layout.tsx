@@ -1,16 +1,15 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Figtree } from 'next/font/google';
+import { Figtree, Geist, Geist_Mono } from 'next/font/google';
 import '../globals.css';
 
-import { cn } from 'cn';
-import { getTheme } from '@wrksz/themes/next';
 import { ThemeProvider } from '@wrksz/themes/next/extended';
+import { cn } from 'cn';
 import { NextIntlClientProvider } from 'next-intl';
 
 import { getLocale } from 'next-intl/server';
 
-import { routing } from '@/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
+import { routing } from '@/i18n/routing';
 
 const figtree = Figtree({
   subsets: ['latin'],

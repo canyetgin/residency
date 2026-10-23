@@ -1,25 +1,24 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useRouter } from '@/i18n/navigation';
-import { toast } from 'sonner';
-import GoogleSocialIcon from '@/public/socials/google-icon.svg';
 import {
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from '@/components/ui/card';
-import { FieldGroup, Field, FieldLabel, FieldError } from '@/components/ui/field';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import { Marker, MarkerContent } from '@/components/ui/marker';
-import { useTranslations } from 'next-intl';
-import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signInSchema, type signInValues } from '@/schemes/auth.scheme';
-import { authClient } from '@/lib/auth-client';
 import { signInAction } from '@/features/auth.ts/actions';
+import { useRouter } from '@/i18n/navigation';
+import GoogleSocialIcon from '@/public/socials/google-icon.svg';
+import { signInSchema, type signInValues } from '@/schemes/auth.scheme';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 type Period = 'night' | 'morning' | 'afternoon' | 'evening';
 

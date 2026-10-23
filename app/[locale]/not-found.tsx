@@ -1,5 +1,4 @@
 import { BackButton } from '@/components/back-button';
-import { Card, CardTitle } from '@/components/ui/card';
 import NotFoundAnimation from '@/public/animations/404.lottie';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { getTranslations } from 'next-intl/server';
