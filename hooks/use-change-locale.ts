@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { useLocale } from 'next-intl';
 
 export function useChangeLocale() {
   const router = useRouter();

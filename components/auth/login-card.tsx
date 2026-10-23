@@ -1,15 +1,11 @@
-import { safeRedirect } from "@/lib/utils";
-import { LoginForm } from "./login-form";
-import { auth } from "@/lib/auth";
-import { getLocale, getTranslations } from "next-intl/server";
-import { headers } from "next/headers";
-import { redirect } from "@/i18n/navigation";
+import { safeRedirect } from '@/lib/utils';
+import { LoginForm } from './login-form';
+import { auth } from '@/lib/auth';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { headers } from 'next/headers';
+import { redirect } from '@/i18n/navigation';
 
-export async function LoginCard({
-  searchParams,
-}: {
-  searchParams: Promise<{ next?: string }>;
-}) {
+export async function LoginCard({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
   const { next } = await searchParams;
   const locale = await getLocale();
 

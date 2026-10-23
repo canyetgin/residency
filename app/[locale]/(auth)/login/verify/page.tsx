@@ -1,6 +1,6 @@
-import { RefreshCwIcon } from "lucide-react";
+import { RefreshCwIcon } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,18 +8,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+} from '@/components/ui/card';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp";
-import { getTranslations, getLocale } from "next-intl/server";
-import { auth } from "@/lib/auth";
-import { cookies, headers } from "next/headers";
-import { redirect } from "next/navigation";
+} from '@/components/ui/input-otp';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { auth } from '@/lib/auth';
+import { cookies, headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export default async function InputOTPForm() {
   const session = await auth.api.getSession({
@@ -34,32 +34,32 @@ export default async function InputOTPForm() {
     redirect(`/${locale}/`);
   }
 
-  const hasInFlightAuth = cookieStore.get("better-auth.two_factor")?.value;
+  const hasInFlightAuth = cookieStore.get('better-auth.two_factor')?.value;
   if (!hasInFlightAuth) {
     redirect(`/${locale}/login`);
   }
 
-  const t = await getTranslations("auth.otp");
+  const t = await getTranslations('auth.otp');
 
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>{t('title')}</CardTitle>
         <CardDescription>
-          {t("desc")} <span className="font-medium">m@example.com</span>.
+          {t('desc')} <span className="font-medium">m@example.com</span>.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Field>
           <div className="flex items-center justify-between">
-            <FieldLabel htmlFor="otp-verification">{t("label")}</FieldLabel>
+            <FieldLabel htmlFor="otp-verification">{t('label')}</FieldLabel>
             <Button variant="outline" size="xs">
               <RefreshCwIcon />
-              {t("resend")}
+              {t('resend')}
             </Button>
           </div>
           <InputOTP
-            aria-label={t("label")}
+            aria-label={t('label')}
             maxLength={6}
             id="otp-verification"
             autoComplete="one-time-code"
@@ -78,22 +78,22 @@ export default async function InputOTPForm() {
             </InputOTPGroup>
           </InputOTP>
           <FieldDescription>
-            <a href="#">{t("notAvaliable")}</a>
+            <a href="#">{t('notAvaliable')}</a>
           </FieldDescription>
         </Field>
       </CardContent>
       <CardFooter>
         <Field>
           <Button type="submit" className="w-full">
-            {t("action")}
+            {t('action')}
           </Button>
           <div className="text-sm text-muted-foreground">
-            {t("helpCTA")}{" "}
+            {t('helpCTA')}{' '}
             <a
               href="#"
               className="underline underline-offset-4 transition-colors hover:text-primary"
             >
-              {t("helpAction")}
+              {t('helpAction')}
             </a>
           </div>
         </Field>

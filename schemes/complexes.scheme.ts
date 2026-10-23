@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const baseComplexFields = {
-  name: z.string().trim().min(1, "İsim alanı boş bırakılamaz"),
+  name: z.string().trim().min(1, 'İsim alanı boş bırakılamaz'),
 };
 
 // Why?
@@ -10,7 +10,7 @@ const baseComplexFields = {
 // 3. Cache Poisoning Prevention: Ensures unexpected/corrupted data never enters Next.js memory.
 
 export const complexDtoSchema = z.object({
-  id: z.uuidv4("Geçersiz ID formatı"),
+  id: z.uuidv4('Geçersiz ID formatı'),
   ...baseComplexFields,
   address: z.string().trim().nullable(),
   createdAt: z.string(),

@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
+import { NextRequest, NextResponse } from 'next/server';
+import { headers } from 'next/headers';
 
-import createMiddleware from "next-intl/middleware";
+import createMiddleware from 'next-intl/middleware';
 
-import { auth } from "@/lib/auth";
-import { routing } from "@/i18n/routing";
-import { can, getRequiredPermissionForRoute } from "@/lib/permissions";
+import { auth } from '@/lib/auth';
+import { routing } from '@/i18n/routing';
+import { can, getRequiredPermissionForRoute } from '@/lib/permissions';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -13,13 +13,13 @@ export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   //for better-auth, disable check permissions for auth routes
 
-  if (pathname.startsWith("/api/auth")) {
+  if (pathname.startsWith('/api/auth')) {
     return NextResponse.next();
   }
 
   //for api routes
 
-  if (pathname.startsWith("/api")) {
+  if (pathname.startsWith('/api')) {
     const session = await auth.api.getSession({
       headers: await headers(),
     });
@@ -27,7 +27,7 @@ export default async function proxy(request: NextRequest) {
     if (!session) {
       return NextResponse.json(
         {
-          error: "Unauthorized",
+          error: 'Unauthorized',
         },
         {
           status: 401,
@@ -41,7 +41,7 @@ export default async function proxy(request: NextRequest) {
   //for better ux we need to understand users preffered lang to not the show default lang on each redirect
 
   const localePattern = new URLPattern({
-    pathname: `/:locale(${routing.locales.join("|")})/:path*`,
+    pathname: `/:locale(${routing.locales.join('|')})/:path*`,
   });
 
   const match = localePattern.exec(request.url);
@@ -57,7 +57,7 @@ export default async function proxy(request: NextRequest) {
   // From here on the locale always comes from the URL.
   const currentLocale = match.pathname.groups.locale;
 
-  const cleanPathname = `/${match.pathname.groups.path || ""}`;
+  const cleanPathname = `/${match.pathname.groups.path || ''}`;
 
   // path/url based check for visitng pages
 
@@ -73,7 +73,7 @@ export default async function proxy(request: NextRequest) {
       const url = new URL(`/${currentLocale}/login`, request.url);
 
       //repect to the next param so login page can redirect to where user came. See in Login Form Compoenent props.
-      url.searchParams.set("next", cleanPathname + request.nextUrl.search);
+      url.searchParams.set('next', cleanPathname + request.nextUrl.search);
       return NextResponse.redirect(url);
     }
 
@@ -88,5 +88,5 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/((?!trpc|_next|_vercel|.*\\..*).*)",
+  matcher: '/((?!trpc|_next|_vercel|.*\\..*).*)',
 };

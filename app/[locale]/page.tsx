@@ -1,6 +1,6 @@
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { routing } from "@/i18n/routing";
-import { authClient } from "@/lib/auth-client";
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import { routing } from '@/i18n/routing';
+import { authClient } from '@/lib/auth-client';
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
