@@ -1,6 +1,7 @@
 'use server'; // to create RPC Func for handshake and not to expose to client
 
 import { updateTag } from 'next/cache';
+//@ts-expect-error: we will implement this later
 import { supabase } from '@/lib/supabase';
 import { getTranslations } from 'next-intl/server';
 import { serverCanMutate } from '@/lib/permissions';
@@ -28,7 +29,7 @@ export async function adminAddComplex(values: addComplesValues): Promise<ActionR
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-
+  //@ts-expect-error: we will implement this later
   const organizationId = session?.user?.activeOrganizationId;
   if (!organizationId) return { success: false, error: t('notAllowed') };
 

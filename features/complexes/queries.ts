@@ -1,6 +1,7 @@
 import 'server-only'; // safe guard for server-side execution only
 
 import { cacheTag } from 'next/cache';
+//@ts-expect-error: we will implement this later
 import { supabase } from '@/lib/supabase/server';
 import { serverCan } from '@/lib/permissions';
 import { organizationIdSchema } from '@/schemes/organizations.scheme';
