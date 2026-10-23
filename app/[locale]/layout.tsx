@@ -66,7 +66,7 @@ export default async function RootLayout({
             systemThemeMap={{ light: "light", dark: "dark" }}
           >
             <main>{children}</main>
-            <Toaster closeButton  />
+            <Toaster closeButton />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

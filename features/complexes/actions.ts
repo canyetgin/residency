@@ -9,8 +9,7 @@ import { headers } from "next/headers";
 import { addComplexSchema, addComplesValues } from "@/schemes/complexes.scheme";
 
 type ActionResponse =
-  | { success: true; error?: never }
-  | { success: false; error: string };
+  { success: true; error?: never } | { success: false; error: string };
 
 export async function adminAddComplex(
   values: addComplesValues,

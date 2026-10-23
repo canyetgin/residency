@@ -4,7 +4,7 @@
       "title": "Something went wrong",
       "description": "We couldn't load this page. Please try again.",
       "retry": "Try again",
-      "reference":"Reference ID:"
+      "reference": "Reference ID:"
     },
     "goBack": "Go Back",
     "request": {
