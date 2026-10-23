@@ -2,7 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import { signInSchema, signInValues } from '@/schemes/auth.scheme';
-import { APIError, isAPIError } from 'better-auth/api';
+import { isAPIError } from 'better-auth/api';
 
 type ActionResponse =
   { success: true; error?: never } | { success: false; error: { status: number; message: string } };
@@ -29,25 +29,24 @@ export async function signInAction(values: signInValues): Promise<ActionResponse
 
     return { success: true };
   } catch (rawErr: unknown) {
-    const err = isAPIError(rawErr) ? (rawErr as APIError) : null;
-
-    if (!err) {
+    if (!isAPIError(rawErr)) {
       return {
         success: false,
         error: { status: 500, message: 'Sistemde teknik bir hata oluştu.' },
       };
     }
 
-    const status = err.status;
+    const authErrorStatus = rawErr.status;
 
     //OWASP - Input sanitization and API Shielding. we didnt render the validation errors so people wont know our validation rules.
-    if (status === 401 || status === 404 || status === 'UNAUTHORIZED') {
+    if (authErrorStatus === 'UNAUTHORIZED') {
       return {
         success: false,
         error: { status: 401, message: 'E-posta veya şifre hatalı.' },
       };
     }
-    if (status === 403 || status === 'FORBIDDEN') {
+
+    if (authErrorStatus === 'FORBIDDEN') {
       return {
         success: false,
         error: {
@@ -56,7 +55,8 @@ export async function signInAction(values: signInValues): Promise<ActionResponse
         },
       };
     }
-    if (status === 429 || status === 'TOO_MANY_REQUESTS') {
+
+    if (authErrorStatus === 'TOO_MANY_REQUESTS') {
       return {
         success: false,
         error: {
