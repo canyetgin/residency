@@ -1,10 +1,9 @@
-echo "🛡️ [Pipeline] Running project-wide TypeScript type-check..."
+echo "======================================================="
+echo "🛡️  [STEP 3/3] HUSKY TRIGGERED: pre-push"
+echo "⏳ Running project-wide TypeScript type-check..."
+echo "======================================================="
 
-if ! pnpm type-check; then
-  echo ""
-  echo "❌ [ERROR] TypeScript compilation or missing import errors found!"
-  echo "💡 Run 'pnpm type-check' locally to inspect and fix the broken files."
-  echo "⚠️ Push aborted. Invalid code prevented from reaching remote repository."
-  echo ""
-  exit 1
-fi
+pnpm type-check
+
+echo "✅ [SUCCESS] All TypeScript checks passed! Pushing to GitHub..."
+echo "======================================================="
