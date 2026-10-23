@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-const email = z.email({ error: "Geçerli bir e-posta adresi girin" });
+const email = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .pipe(z.email("Geçerli bir e-posta adresi girin."));
 
 const password = z
   .string({ error: "Şifre gerekli" })

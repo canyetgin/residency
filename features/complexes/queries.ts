@@ -1,12 +1,19 @@
-import "server-only"; // always need this for fetches requires will be on serverside only. IT WILL RAISE ERR IF YOU WILL MISTAKENLY IMPORT TO CLIENT-SIDE CODE. It's the safe guard.
+import "server-only"; // safe guard for server-side execution only
 
 import { cacheTag } from "next/cache";
 import { supabase } from "@/lib/supabase/server";
-import { getTranslations } from "next-intl/server";
 import { serverCan } from "@/lib/permissions";
+import { organizationIdSchema } from "@/schemes/organizations.scheme";
+import { complexDtoSchema, ComplexDTO } from "@/schemes/complexes.scheme";
+import { z } from "zod";
 
-export async function adminGetComplexesList(organizationId: string) {
-  const t = await getTranslations("general.request");
+export async function adminGetComplexesList(
+  organizationId: string,
+): Promise<ComplexDTO[]> {
+  const validatedInput = organizationIdSchema.safeParse(organizationId);
+  if (!validatedInput.success) {
+    throw new Error("Invalid format");
+  }
 
   //DAL and Zero trust architecture layer, for the latest approch for data security
   const isAllowed = await serverCan("properties:list:view");
@@ -14,7 +21,15 @@ export async function adminGetComplexesList(organizationId: string) {
     throw new Error("Not Allowed");
   }
 
-  return getCachedComplexes(organizationId);
+  const rawData = await getCachedComplexes(validatedInput.data);
+
+  const sanitizedFields = z.array(complexDtoSchema).safeParse(rawData);
+
+  if (!sanitizedFields.success) {
+    throw new Error("Data mismatch");
+  }
+
+  return sanitizedFields.data;
 }
 
 async function getCachedComplexes(organizationId: string) {
@@ -24,13 +39,12 @@ async function getCachedComplexes(organizationId: string) {
 
   const { data, error } = await supabase
     .from("complexes")
-    .select("*")
+    .select("id, name, address, createdAt:created_at")
     .eq("organization_id", organizationId)
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Supabase ERR:", error.message);
-    throw new Error("Couldn't fetch complexes");
+    throw new Error(error.message);
   }
 
   return data || [];

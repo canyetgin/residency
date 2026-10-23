@@ -22,8 +22,9 @@ import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema, type signInValues } from "@/schemes/auth.sceheme";
+import { signInSchema, type signInValues } from "@/schemes/auth.scheme";
 import { authClient } from "@/lib/auth-client";
+import { signInAction } from "@/features/auth.ts/actions";
 
 type Period = "night" | "morning" | "afternoon" | "evening";
 
@@ -52,30 +53,11 @@ export function LoginForm({ next }: { next: string }) {
   });
 
   async function onSubmit(values: signInValues) {
-    const { error } = await authClient.signIn.email({
-      email: values.email.trim().toLowerCase(),
-      password: values.password,
-    });
+    const result = await signInAction(values);
 
-    if (error) {
-      if (error.status === 403) {
-        toast.error("Hata", {
-          description:
-            "E-posta adresiniz doğrulanmamış. Gelen kutunuzdaki bağlantıyı kullanın.",
-          position: "bottom-center",
-        });
-        return;
-      }
-      if (error.status === 429) {
-        toast.error("Hata", {
-          description: "Çok fazla deneme yaptınız. Biraz sonra tekrar deneyin.",
-          position: "bottom-center",
-        });
-        return;
-      }
-
+    if (!result.success) {
       toast.error("Hata", {
-        description: "E-posta veya şifre hatalı",
+        description: result.error.message,
         position: "bottom-center",
       });
       return;
