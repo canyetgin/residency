@@ -51,7 +51,7 @@ export function LoginForm({ next }: { next: string }) {
 
     if (!result.success) {
       toast.error('Hata', {
-        description: result.error.message,
+        description: result.error,
         position: 'bottom-center',
       });
       return;
