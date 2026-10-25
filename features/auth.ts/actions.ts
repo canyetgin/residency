@@ -12,7 +12,7 @@ export async function signInAction(values: signInValues): Promise<ActionResponse
   if (!validatedFields.success) {
     return {
       success: false,
-      error: 'Geçersiz veya manipüle edilmiş istek.',
+      error: 'Geçersiz istek.',
     };
   }
 
