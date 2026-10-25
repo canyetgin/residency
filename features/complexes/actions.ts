@@ -5,7 +5,7 @@ import { serverCanMutate } from '@/lib/permissions';
 import { updateTag } from 'next/cache';
 //@ts-expect-error: we will implement this later
 import { supabase } from '@/lib/supabase';
-import { addComplesValues, addComplexSchema } from '@/schemes/complexes.scheme';
+import { type addComplesValues, addComplexSchema } from '@/schemes/complexes.scheme';
 import { getTranslations } from 'next-intl/server';
 import { headers } from 'next/headers';
 

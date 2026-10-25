@@ -4,7 +4,7 @@ import { serverCan } from '@/lib/permissions';
 import { cacheTag } from 'next/cache';
 //@ts-expect-error: we will implement this later
 import { supabase } from '@/lib/supabase/server';
-import { ComplexDTO, complexDtoSchema } from '@/schemes/complexes.scheme';
+import { type ComplexDTO, complexDtoSchema } from '@/schemes/complexes.scheme';
 import { organizationIdSchema } from '@/schemes/organizations.scheme';
 import { z } from 'zod';
 
